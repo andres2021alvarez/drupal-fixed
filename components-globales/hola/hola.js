@@ -1,8 +1,7 @@
 /******/ (function() { // webpackBootstrap
 /*!*******************************************!*\
-  !*** ./components-globales/hero/_hero.js ***!
+  !*** ./components-globales/hola/_hola.js ***!
   \*******************************************/
-console.log('Prueba Componentes elevado');
+
 /******/ })()
 ;
-//# sourceMappingURL=hero.js.map

@@ -8,11 +8,11 @@
  |
 */
 /* eslint-disable */
-require('dotenv').config({ path: '.env.local' });
-const mix = require('laravel-mix');
-const glob = require('glob');
-require('laravel-mix-stylelint');
-require('laravel-mix-copy-watched');
+require("dotenv").config({ path: ".env.local" });
+const mix = require("laravel-mix");
+const glob = require("glob");
+require("laravel-mix-stylelint");
+require("laravel-mix-copy-watched");
 
 /*
   |--------------------------------------------------------------------------
@@ -22,7 +22,10 @@ require('laravel-mix-copy-watched');
 mix
   .sourceMaps()
   .webpackConfig({
-    devtool: 'source-map',
+    devtool: "source-map",
+    resolve: {
+      symlinks: false, // Asegura compatibilidad con enlaces simbólicos
+    },
   })
   .disableNotifications()
   .options({
@@ -37,12 +40,15 @@ mix
 mix.browserSync({
   proxy: process.env.DRUPAL_BASE_URL,
   files: [
-    'components/**/*.css',
-    'components/**/*.js',
-    'components/**/*.twig',
-    'templates/**/*.twig',
-    'build/css/*.css',
-    'build/js/*.js',
+    "components/**/*.css",
+    "components/**/*.js",
+    "components/**/*.twig",
+    "components-globales/**/*.css", // 👈 agregado
+    "components-globales/**/*.js",  // 👈 agregado
+    "components-globales/**/*.twig",// 👈 agregado
+    "templates/**/*.twig",
+    "build/css/*.css",
+    "build/js/*.js",
   ],
   stream: true,
 });
@@ -52,23 +58,22 @@ mix.browserSync({
   | SASS
   |--------------------------------------------------------------------------
 */
-mix.sass('src/scss/main.style.scss', 'build/css/main.style.css');
+mix.sass("src/scss/main.style.scss", "build/css/main.style.css");
 
 const globOptions = {
   follow: true,
-  realpath: true
+  realpath: true,
 };
 
-for (const sourcePath of glob.sync('components/**/*.scss', globOptions)) {
-  const destinationPath = sourcePath.replace(/\.scss$/, '.css');
+// SCSS de componentes
+for (const sourcePath of glob.sync("components/**/*.scss", globOptions)) {
+  const destinationPath = sourcePath.replace(/\.scss$/, ".css");
   mix.sass(sourcePath, destinationPath);
 }
 
-for (const sourcePath of glob.sync('components-globales/**/*.scss', globOptions)) {
-  const destinationPath = sourcePath.replace(/\.scss$/, '.css');
-  console.log(sourcePath);
-  console.log(destinationPath);
-
+// SCSS de componentes-globales
+for (const sourcePath of glob.sync("components-globales/**/*.scss", globOptions)) {
+  const destinationPath = sourcePath.replace(/\.scss$/, ".css");
   mix.sass(sourcePath, destinationPath);
 }
 
@@ -77,10 +82,17 @@ for (const sourcePath of glob.sync('components-globales/**/*.scss', globOptions)
   | JS
   |--------------------------------------------------------------------------
 */
-mix.js('src/js/main.script.js', 'build/js/main.script.js');
+mix.js("src/js/main.script.js", "build/js/main.script.js");
 
-for (const sourcePath of glob.sync('components/**/_*.js')) {
-  const destinationPath = sourcePath.replace(/\/_([^/]+\.js)$/, '/$1');
+// JS de componentes
+for (const sourcePath of glob.sync("components/**/_*.js")) {
+  const destinationPath = sourcePath.replace(/\/_([^/]+\.js)$/, "/$1");
+  mix.js(sourcePath, destinationPath);
+}
+
+// JS de componentes-globales
+for (const sourcePath of glob.sync("components-globales/**/_*.js")) {
+  const destinationPath = sourcePath.replace(/\/_([^/]+\.js)$/, "/$1");
   mix.js(sourcePath, destinationPath);
 }
 
@@ -90,12 +102,12 @@ for (const sourcePath of glob.sync('components/**/_*.js')) {
   |--------------------------------------------------------------------------
 */
 mix.stylelint({
-  configFile: './.stylelintrc.json',
-  context: './src',
+  configFile: "./.stylelintrc.json",
+  context: "./src",
   failOnError: false,
-  files: ['**/*.scss'],
+  files: ["**/*.scss"],
   quiet: false,
-  customSyntax: 'postcss-scss',
+  customSyntax: "postcss-scss",
 });
 
 /*
@@ -103,8 +115,7 @@ mix.stylelint({
   * IMAGES / ICONS / VIDEOS / FONTS
   |--------------------------------------------------------------------------
   */
-// * Directly copies the images, icons and fonts with no optimizations on the images
-mix.copyDirectoryWatched('src/assets/images', 'build/assets/images');
-mix.copyDirectoryWatched('src/assets/icons', 'build/assets/icons');
-mix.copyDirectoryWatched('src/assets/videos', 'build/assets/videos');
-mix.copyDirectoryWatched('src/assets/fonts/**/*', 'build/fonts');
+mix.copyDirectoryWatched("src/assets/images", "build/assets/images");
+mix.copyDirectoryWatched("src/assets/icons", "build/assets/icons");
+mix.copyDirectoryWatched("src/assets/videos", "build/assets/videos");
+mix.copyDirectoryWatched("src/assets/fonts/**/*", "build/fonts");

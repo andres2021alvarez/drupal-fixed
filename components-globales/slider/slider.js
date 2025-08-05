@@ -1,8 +1,7 @@
 /******/ (function() { // webpackBootstrap
 /*!***********************************************!*\
-  !*** ./components-globales/footer/_footer.js ***!
+  !*** ./components-globales/slider/_slider.js ***!
   \***********************************************/
-console.log('Prueba Componentes loaded');
+
 /******/ })()
 ;
-//# sourceMappingURL=footer.js.map

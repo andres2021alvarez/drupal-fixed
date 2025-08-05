@@ -4,21 +4,3 @@
 * Template for footer component.
 */
 #}
-
-<div class="footer">
-  <p>{{ footer_text }}</p>
-  {% if footer_links %}
-    <ul class="footer-links">
-      {% for link in footer_links %}
-        <li><a href="{{ link.url }}">{{ link.text }}</a></li>
-      {% endfor %}
-    </ul>
-  {% endif %}
-  {% if social_media %}
-    <div class="social-media">
-      {% for platform, url in social_media %}
-        <a href="{{ url }}" class="social-link">{{ platform }}</a>
-      {% endfor %}
-    </div>
-  {% endif %}
-</div>
