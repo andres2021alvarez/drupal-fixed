@@ -1,1 +1,0 @@
-{"version":3,"file":"/components/prueba-andres/footer/footer.js","mappings":";;;;AAAAA,OAAO,CAACC,GAAG,CAAC,2BAA2B,CAAC,C","sources":["webpack://andres/./components/prueba-andres/footer/_footer.js"],"sourcesContent":["console.log('Prueba Componentes loaded');\n"],"names":["console","log"],"sourceRoot":""}
