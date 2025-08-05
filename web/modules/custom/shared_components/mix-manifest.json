@@ -1,4 +1,6 @@
 {
+    "/components/accordion/accordion.js": "/components/accordion/accordion.js",
     "/components/card/card.js": "/components/card/card.js",
-    "/components/card/card.css": "/components/card/card.css"
+    "/components/card/card.css": "/components/card/card.css",
+    "/components/accordion/accordion.css": "/components/accordion/accordion.css"
 }
