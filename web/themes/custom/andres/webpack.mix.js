@@ -24,7 +24,7 @@ mix
   .webpackConfig({
     devtool: "source-map",
     resolve: {
-      symlinks: false, // Asegura compatibilidad con enlaces simbólicos
+      symlinks: true, // Asegura compatibilidad con enlaces simbólicos
     },
   })
   .disableNotifications()
@@ -43,9 +43,6 @@ mix.browserSync({
     "components/**/*.css",
     "components/**/*.js",
     "components/**/*.twig",
-    "components-globales/**/*.css", // 👈 agregado
-    "components-globales/**/*.js",  // 👈 agregado
-    "components-globales/**/*.twig",// 👈 agregado
     "templates/**/*.twig",
     "build/css/*.css",
     "build/js/*.js",
@@ -62,7 +59,6 @@ mix.sass("src/scss/main.style.scss", "build/css/main.style.css");
 
 const globOptions = {
   follow: true,
-  realpath: true,
 };
 
 // SCSS de componentes
@@ -71,11 +67,6 @@ for (const sourcePath of glob.sync("components/**/*.scss", globOptions)) {
   mix.sass(sourcePath, destinationPath);
 }
 
-// SCSS de componentes-globales
-for (const sourcePath of glob.sync("components-globales/**/*.scss", globOptions)) {
-  const destinationPath = sourcePath.replace(/\.scss$/, ".css");
-  mix.sass(sourcePath, destinationPath);
-}
 
 /*
   |--------------------------------------------------------------------------
@@ -86,12 +77,6 @@ mix.js("src/js/main.script.js", "build/js/main.script.js");
 
 // JS de componentes
 for (const sourcePath of glob.sync("components/**/_*.js")) {
-  const destinationPath = sourcePath.replace(/\/_([^/]+\.js)$/, "/$1");
-  mix.js(sourcePath, destinationPath);
-}
-
-// JS de componentes-globales
-for (const sourcePath of glob.sync("components-globales/**/_*.js")) {
   const destinationPath = sourcePath.replace(/\/_([^/]+\.js)$/, "/$1");
   mix.js(sourcePath, destinationPath);
 }

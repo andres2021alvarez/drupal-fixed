@@ -1,8 +1,0 @@
-/******/ (function() { // webpackBootstrap
-/*!***********************************************!*\
-  !*** ./components-globales/footer/_footer.js ***!
-  \***********************************************/
-console.log('Prueba Componentes loaded');
-/******/ })()
-;
-//# sourceMappingURL=footer.js.map

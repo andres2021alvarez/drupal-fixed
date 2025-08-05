@@ -1,17 +1,9 @@
 {
     "/build/js/main.script.js": "/build/js/main.script.js",
     "/components/card/card.js": "/components/card/card.js",
-    "/components-globales/footer/footer.js": "/components-globales/footer/footer.js",
-    "/components-globales/hero/hero.js": "/components-globales/hero/hero.js",
-    "/components-globales/hola/hola.js": "/components-globales/hola/hola.js",
-    "/components-globales/prueba-componentes/prueba-componentes.js": "/components-globales/prueba-componentes/prueba-componentes.js",
-    "/components-globales/slider/slider.js": "/components-globales/slider/slider.js",
-    "/components-globales/footer/footer.css": "/components-globales/footer/footer.css",
-    "/components/section/section.css": "/components/section/section.css",
+    "/components/prueba-andres/footer/footer.js": "/components/prueba-andres/footer/footer.js",
     "/components/card/card.css": "/components/card/card.css",
     "/components/banner/banner.css": "/components/banner/banner.css",
     "/build/css/main.style.css": "/build/css/main.style.css",
-    "/components-globales/slider/slider.css": "/components-globales/slider/slider.css",
-    "/components-globales/prueba-componentes/prueba-componentes.css": "/components-globales/prueba-componentes/prueba-componentes.css",
-    "/components-globales/hero/hero.css": "/components-globales/hero/hero.css"
+    "/components/prueba-andres/footer/footer.css": "/components/prueba-andres/footer/footer.css"
 }
