@@ -52,7 +52,6 @@ mix.browserSync({
   | SASS
   |--------------------------------------------------------------------------
 */
-mix.sass('src/scss/main.style.scss', 'build/css/main.style.css');
 
 for (const sourcePath of glob.sync('components/**/*.scss')) {
   const destinationPath = sourcePath.replace(/\.scss$/, '.css');
@@ -64,7 +63,6 @@ for (const sourcePath of glob.sync('components/**/*.scss')) {
   | JS
   |--------------------------------------------------------------------------
 */
-mix.js('src/js/main.script.js', 'build/js/main.script.js');
 
 for (const sourcePath of glob.sync('components/**/_*.js')) {
   const destinationPath = sourcePath.replace(/\/_([^/]+\.js)$/, '/$1');

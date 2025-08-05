@@ -1,36 +1,77 @@
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const glob = require('glob');
+const fs = require('fs');
 
 // Función para encontrar automáticamente todos los archivos .scss de componentes
 function getEntries() {
   const entries = {};
+  const componentsDir = path.join(__dirname, 'components');
 
-  // Buscar todos los archivos .scss en las carpetas de componentes
-  const scssFiles = glob.sync('./components/**/*.scss');
-
-  scssFiles.forEach(file => {
-    // Extraer el nombre del componente del path
-    const matches = file.match(/\/components\/([^\/]+)\/[^\/]+\.scss$/);
-    if (matches) {
-      const componentName = matches[1];
-      entries[`components/${componentName}/${componentName}`] = file;
+  try {
+    // Verificar si existe el directorio components
+    if (!fs.existsSync(componentsDir)) {
+      console.log('📁 Directorio components no encontrado, creándolo...');
+      fs.mkdirSync(componentsDir, { recursive: true });
+      return entries;
     }
-  });
+
+    // Leer directorios de componentes
+    const componentDirs = fs.readdirSync(componentsDir, { withFileTypes: true })
+      .filter(dirent => dirent.isDirectory())
+      .map(dirent => dirent.name);
+
+    componentDirs.forEach(componentName => {
+      const componentDir = path.join(componentsDir, componentName);
+      const scssFile = path.join(componentDir, `${componentName}.scss`);
+
+      // Verificar si existe el archivo .scss
+      if (fs.existsSync(scssFile)) {
+        entries[`components/${componentName}/${componentName}`] = scssFile;
+        console.log(`✅ Encontrado: ${componentName}.scss`);
+      }
+    });
+
+    if (Object.keys(entries).length === 0) {
+      console.log('📝 No se encontraron archivos .scss en componentes');
+    }
+
+  } catch (error) {
+    console.log('⚠️  Error leyendo directorio components:', error.message);
+  }
 
   return entries;
 }
 
 module.exports = (env, argv) => {
   const isProduction = argv.mode === 'production';
+  const componentEntries = getEntries();
+
+  // Configuración de entrada
+  const entries = {
+    // Solo agregar global si existe el archivo
+    ...(fs.existsSync('./src/global.scss') ? { 'dist/global': './src/global.scss' } : {}),
+    // Agregar JavaScript global si existe
+    ...(fs.existsSync('./src/global.js') ? { 'dist/global': './src/global.js' } : {}),
+    // Agregar componentes encontrados
+    ...componentEntries
+  };
+
+  // Si no hay entradas, crear una entrada dummy
+  if (Object.keys(entries).length === 0) {
+    console.log('⚠️  No se encontraron archivos .scss, creando entrada dummy');
+    entries['dist/dummy'] = path.join(__dirname, 'webpack-dummy.js');
+
+    // Crear archivo dummy si no existe
+    const dummyFile = path.join(__dirname, 'webpack-dummy.js');
+    if (!fs.existsSync(dummyFile)) {
+      fs.writeFileSync(dummyFile, '// Archivo dummy para webpack - se puede eliminar cuando tengas archivos .scss\nconsole.log("Shared Components Module loaded");');
+    }
+  }
+
+  console.log('📦 Entradas de Webpack:', Object.keys(entries));
 
   return {
-    entry: {
-      // Compilar archivos globales si los tienes
-      'dist/global': './src/global.scss',
-      // Agregar dinámicamente todos los componentes
-      ...getEntries()
-    },
+    entry: entries,
 
     output: {
       path: path.resolve(__dirname),
@@ -72,6 +113,11 @@ module.exports = (env, argv) => {
           generator: {
             filename: 'dist/fonts/[name][ext]'
           }
+        },
+        {
+          test: /\.js$/,
+          use: 'babel-loader',
+          exclude: /node_modules/
         }
       ]
     },
@@ -95,8 +141,16 @@ module.exports = (env, argv) => {
       ignored: [
         '**/node_modules',
         '**/dist',
-        '**/*.twig'
+        '**/*.twig',
+        '**/*.yml'
       ]
+    },
+
+    stats: {
+      colors: true,
+      modules: false,
+      chunks: false,
+      chunkModules: false
     }
   };
 };

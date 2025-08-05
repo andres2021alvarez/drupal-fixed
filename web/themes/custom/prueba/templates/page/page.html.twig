@@ -42,4 +42,9 @@
  * @see html.html.twig
  */
 #}
-{% include 'prueba:card' %}
+{% include 'shared_components:card' with {
+  title: 'Mi título',
+  content: '<p>Mi contenido</p>',
+  variant: 'default'
+} %}
+
