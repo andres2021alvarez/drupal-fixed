@@ -14,9 +14,6 @@ const glob = require('glob');
 require('laravel-mix-stylelint');
 require('laravel-mix-copy-watched');
 
-// Suprimir warnings de deprecación de Sass temporalmente
-process.env.SASS_SILENCE_DEPRECATIONS = 'legacy-js-api';
-
 /*
   |--------------------------------------------------------------------------
   | Configuration
@@ -43,9 +40,6 @@ mix.browserSync({
     'components/**/*.css',
     'components/**/*.js',
     'components/**/*.twig',
-    'components-globales/**/*.css',
-    'components-globales/**/*.js',
-    'components-globales/**/*.twig',
     'templates/**/*.twig',
     'build/css/*.css',
     'build/js/*.js',
@@ -65,19 +59,18 @@ const globOptions = {
   realpath: true
 };
 
-// Procesar archivos SCSS de componentes regulares
 for (const sourcePath of glob.sync('components/**/*.scss', globOptions)) {
-  console.log('Processing SCSS:', sourcePath);
-  const destinationPath = sourcePath.replace(/\.scss$/, '.css');
-  mix.sass(sourcePath, destinationPath);
-}
-// Procesar archivos SCSS de componentes globales
-for (const sourcePath of glob.sync('components-globales/**/*.scss', globOptions)) {
-  console.log('Processing SCSS:', sourcePath);
   const destinationPath = sourcePath.replace(/\.scss$/, '.css');
   mix.sass(sourcePath, destinationPath);
 }
 
+for (const sourcePath of glob.sync('components-globales/**/*.scss', globOptions)) {
+  const destinationPath = sourcePath.replace(/\.scss$/, '.css');
+  console.log(sourcePath);
+  console.log(destinationPath);
+
+  mix.sass(sourcePath, destinationPath);
+}
 
 /*
   |--------------------------------------------------------------------------
@@ -86,13 +79,7 @@ for (const sourcePath of glob.sync('components-globales/**/*.scss', globOptions)
 */
 mix.js('src/js/main.script.js', 'build/js/main.script.js');
 
-// Procesar archivos JS de componentes regulares
-for (const sourcePath of glob.sync('components/**/_*.js', { follow: true })) {
-  const destinationPath = sourcePath.replace(/\/_([^/]+\.js)$/, '/$1');
-  mix.js(sourcePath, destinationPath);
-}
-
-for (const sourcePath of glob.sync('components-globales/**/_*.js', { follow: true })) {
+for (const sourcePath of glob.sync('components/**/_*.js')) {
   const destinationPath = sourcePath.replace(/\/_([^/]+\.js)$/, '/$1');
   mix.js(sourcePath, destinationPath);
 }

@@ -53,6 +53,19 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./components/card/card.scss":
+/*!***********************************!*\
+  !*** ./components/card/card.scss ***!
+  \***********************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+// extracted by mini-css-extract-plugin
+
+
+/***/ }),
+
 /***/ "./components/section/section.scss":
 /*!*****************************************!*\
   !*** ./components/section/section.scss ***!
@@ -8459,12 +8472,13 @@ __webpack_require__.r(__webpack_exports__);
 /******/ 		// [resolve, reject, Promise] = chunk loading, 0 = chunk loaded
 /******/ 		var installedChunks = {
 /******/ 			"/build/js/main.script": 0,
+/******/ 			"components/banner/banner": 0,
+/******/ 			"components-globales/prueba-componentes/prueba-componentes": 0,
 /******/ 			"components-globales/hero/hero": 0,
 /******/ 			"components-globales/footer/footer": 0,
-/******/ 			"components/section/section": 0,
-/******/ 			"components/banner/banner": 0,
 /******/ 			"build/css/main.style": 0,
-/******/ 			"components-globales/prueba-componentes/prueba-componentes": 0
+/******/ 			"components/section/section": 0,
+/******/ 			"components/card/card": 0
 /******/ 		};
 /******/ 		
 /******/ 		// no chunk on demand loading
@@ -8516,13 +8530,14 @@ __webpack_require__.r(__webpack_exports__);
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module depends on other loaded chunks and execution need to be delayed
-/******/ 	__webpack_require__.O(undefined, ["components-globales/hero/hero","components-globales/footer/footer","components/section/section","components/banner/banner","build/css/main.style","components-globales/prueba-componentes/prueba-componentes"], function() { return __webpack_require__("./src/js/main.script.js"); })
-/******/ 	__webpack_require__.O(undefined, ["components-globales/hero/hero","components-globales/footer/footer","components/section/section","components/banner/banner","build/css/main.style","components-globales/prueba-componentes/prueba-componentes"], function() { return __webpack_require__("./src/scss/main.style.scss"); })
-/******/ 	__webpack_require__.O(undefined, ["components-globales/hero/hero","components-globales/footer/footer","components/section/section","components/banner/banner","build/css/main.style","components-globales/prueba-componentes/prueba-componentes"], function() { return __webpack_require__("./components/banner/banner.scss"); })
-/******/ 	__webpack_require__.O(undefined, ["components-globales/hero/hero","components-globales/footer/footer","components/section/section","components/banner/banner","build/css/main.style","components-globales/prueba-componentes/prueba-componentes"], function() { return __webpack_require__("./components/section/section.scss"); })
-/******/ 	__webpack_require__.O(undefined, ["components-globales/hero/hero","components-globales/footer/footer","components/section/section","components/banner/banner","build/css/main.style","components-globales/prueba-componentes/prueba-componentes"], function() { return __webpack_require__("../../../../components-globales/footer/footer.scss"); })
-/******/ 	__webpack_require__.O(undefined, ["components-globales/hero/hero","components-globales/footer/footer","components/section/section","components/banner/banner","build/css/main.style","components-globales/prueba-componentes/prueba-componentes"], function() { return __webpack_require__("../../../../components-globales/hero/hero.scss"); })
-/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["components-globales/hero/hero","components-globales/footer/footer","components/section/section","components/banner/banner","build/css/main.style","components-globales/prueba-componentes/prueba-componentes"], function() { return __webpack_require__("../../../../components-globales/prueba-componentes/prueba-componentes.scss"); })
+/******/ 	__webpack_require__.O(undefined, ["components/banner/banner","components-globales/prueba-componentes/prueba-componentes","components-globales/hero/hero","components-globales/footer/footer","build/css/main.style","components/section/section","components/card/card"], function() { return __webpack_require__("./src/js/main.script.js"); })
+/******/ 	__webpack_require__.O(undefined, ["components/banner/banner","components-globales/prueba-componentes/prueba-componentes","components-globales/hero/hero","components-globales/footer/footer","build/css/main.style","components/section/section","components/card/card"], function() { return __webpack_require__("./src/scss/main.style.scss"); })
+/******/ 	__webpack_require__.O(undefined, ["components/banner/banner","components-globales/prueba-componentes/prueba-componentes","components-globales/hero/hero","components-globales/footer/footer","build/css/main.style","components/section/section","components/card/card"], function() { return __webpack_require__("../../../../components-globales/footer/footer.scss"); })
+/******/ 	__webpack_require__.O(undefined, ["components/banner/banner","components-globales/prueba-componentes/prueba-componentes","components-globales/hero/hero","components-globales/footer/footer","build/css/main.style","components/section/section","components/card/card"], function() { return __webpack_require__("../../../../components-globales/hero/hero.scss"); })
+/******/ 	__webpack_require__.O(undefined, ["components/banner/banner","components-globales/prueba-componentes/prueba-componentes","components-globales/hero/hero","components-globales/footer/footer","build/css/main.style","components/section/section","components/card/card"], function() { return __webpack_require__("../../../../components-globales/prueba-componentes/prueba-componentes.scss"); })
+/******/ 	__webpack_require__.O(undefined, ["components/banner/banner","components-globales/prueba-componentes/prueba-componentes","components-globales/hero/hero","components-globales/footer/footer","build/css/main.style","components/section/section","components/card/card"], function() { return __webpack_require__("./components/banner/banner.scss"); })
+/******/ 	__webpack_require__.O(undefined, ["components/banner/banner","components-globales/prueba-componentes/prueba-componentes","components-globales/hero/hero","components-globales/footer/footer","build/css/main.style","components/section/section","components/card/card"], function() { return __webpack_require__("./components/card/card.scss"); })
+/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["components/banner/banner","components-globales/prueba-componentes/prueba-componentes","components-globales/hero/hero","components-globales/footer/footer","build/css/main.style","components/section/section","components/card/card"], function() { return __webpack_require__("./components/section/section.scss"); })
 /******/ 	__webpack_exports__ = __webpack_require__.O(__webpack_exports__);
 /******/ 	
 /******/ })()

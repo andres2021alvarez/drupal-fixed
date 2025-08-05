@@ -1,12 +1,11 @@
 {
     "/build/js/main.script.js": "/build/js/main.script.js",
-    "/components-globales/footer/footer.js": "/components-globales/footer/footer.js",
-    "/components-globales/hero/hero.js": "/components-globales/hero/hero.js",
-    "/components-globales/prueba-componentes/prueba-componentes.js": "/components-globales/prueba-componentes/prueba-componentes.js",
+    "/components/card/card.js": "/components/card/card.js",
+    "/components/banner/banner.css": "/components/banner/banner.css",
+    "/components-globales/prueba-componentes/prueba-componentes.css": "/components-globales/prueba-componentes/prueba-componentes.css",
     "/components-globales/hero/hero.css": "/components-globales/hero/hero.css",
     "/components-globales/footer/footer.css": "/components-globales/footer/footer.css",
-    "/components/section/section.css": "/components/section/section.css",
-    "/components/banner/banner.css": "/components/banner/banner.css",
     "/build/css/main.style.css": "/build/css/main.style.css",
-    "/components-globales/prueba-componentes/prueba-componentes.css": "/components-globales/prueba-componentes/prueba-componentes.css"
+    "/components/section/section.css": "/components/section/section.css",
+    "/components/card/card.css": "/components/card/card.css"
 }
