@@ -1,0 +1,62 @@
+$schema: https://git.drupalcode.org/project/sdc/-/raw/1.x/src/metadata.schema.json
+name: Card
+status: stable
+description: 'Componente de tarjeta reutilizable para todos los sitios'
+group: Shared Components
+props:
+  type: object
+  properties:
+    title:
+      type: string
+      title: Título
+      description: 'Título de la tarjeta'
+      examples:
+        - 'Mi tarjeta'
+    content:
+      type: string
+      title: Contenido
+      description: 'Contenido HTML de la tarjeta'
+      examples:
+        - '<p>Este es el contenido de la tarjeta</p>'
+    image:
+      type: object
+      title: Imagen
+      properties:
+        src:
+          type: string
+          title: URL de la imagen
+        alt:
+          type: string
+          title: Texto alternativo
+      examples:
+        - src: '/path/to/image.jpg'
+          alt: 'Descripción de la imagen'
+    link:
+      type: object
+      title: Enlace
+      properties:
+        url:
+          type: string
+          title: URL del enlace
+        text:
+          type: string
+          title: Texto del enlace
+        target:
+          type: string
+          title: Target del enlace
+          default: '_self'
+      examples:
+        - url: '/node/123'
+          text: 'Leer más'
+          target: '_self'
+    variant:
+      type: string
+      title: Variante
+      description: 'Variante visual de la tarjeta'
+      enum:
+        - 'default'
+        - 'featured'
+        - 'compact'
+      default: 'default'
+  required:
+    - title

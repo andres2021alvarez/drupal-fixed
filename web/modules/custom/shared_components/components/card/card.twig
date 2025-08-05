@@ -1,0 +1,62 @@
+{#
+/**
+ * @file
+ * Template para el componente card.
+ *
+ * Variables disponibles:
+ * - title: string - Título de la tarjeta
+ * - content: string - Contenido de la tarjeta
+ * - image: object - Objeto con src y alt para la imagen
+ * - link: object - Objeto con url, text y target para el enlace
+ * - variant: string - Variante visual (default|featured|compact)
+ */
+#}
+
+{% set classes = [
+  'shared-card',
+  'shared-card--' ~ (variant|default('default')),
+  image ? 'shared-card--with-image' : 'shared-card--text-only'
+] %}
+
+<article {{ attributes.addClass(classes) }}>
+  {% if image and image.src %}
+    <div class="shared-card__image">
+      {% if link and link.url %}
+        <a href="{{ link.url }}"{% if link.target %} target="{{ link.target }}"{% endif %}>
+          <img src="{{ image.src }}" alt="{{ image.alt|default('') }}" loading="lazy">
+        </a>
+      {% else %}
+        <img src="{{ image.src }}" alt="{{ image.alt|default('') }}" loading="lazy">
+      {% endif %}
+    </div>
+  {% endif %}
+
+  <div class="shared-card__content">
+    {% if title %}
+      <h3 class="shared-card__title">
+        {% if link and link.url %}
+          <a href="{{ link.url }}"{% if link.target %} target="{{ link.target }}"{% endif %}>
+            {{ title }}
+          </a>
+        {% else %}
+          {{ title }}
+        {% endif %}
+      </h3>
+    {% endif %}
+
+    {% if content %}
+      <div class="shared-card__body">
+        {{ content|raw }}
+      </div>
+    {% endif %}
+
+    {% if link and link.url and link.text %}
+      <div class="shared-card__footer">
+        <a href="{{ link.url }}" class="shared-card__link"{% if link.target %} target="{{ link.target }}"{% endif %}>
+          {{ link.text }}
+          <span class="shared-card__arrow" aria-hidden="true">→</span>
+        </a>
+      </div>
+    {% endif %}
+  </div>
+</article>

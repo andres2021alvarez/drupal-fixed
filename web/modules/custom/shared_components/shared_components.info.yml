@@ -1,0 +1,7 @@
+name: 'shared components'
+type: module
+description: 'Módulo con componentes compartidos para multisite con SDC'
+package: Custom
+core_version_requirement: ^10 || ^11
+dependencies:
+  - sdc:sdc
