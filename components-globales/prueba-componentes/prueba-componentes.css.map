@@ -1,0 +1,1 @@
+{"version":3,"file":"components-globales/prueba-componentes/prueba-componentes.css","mappings":"AACA;EACE;AAAF,C","sources":["webpack://andres/../../../../components-globales/prueba-componentes/prueba-componentes.scss"],"sourcesContent":["\n.banner {\n  background-color: blue;\n}"],"names":[],"sourceRoot":""}

@@ -1,0 +1,5 @@
+name: 'Lazy Iframe'
+type: module
+description: 'Agrega el atributo loading=&quot;lazy&quot; a todos los iframes'
+package: Custom
+core_version_requirement: ^10 || ^11

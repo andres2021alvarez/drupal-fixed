@@ -1,0 +1,38 @@
+name: andres
+description: "andres theme based on <a href='https://www.drupal.org/project/radix' target='_blank'>Radix 6.x</a> and Bootstrap 5.x"
+screenshot: screenshot.png
+'alt text': 'andres theme screenshot'
+core_version_requirement: ^11
+engine: twig
+type: theme
+'base theme': radix
+starterkit: true
+'interface translation project': andres
+'interface translation server pattern': themes/custom/andres/translations/%language.po
+regions:
+  navbar_branding: 'Navbar branding'
+  navbar_left: 'Navbar left'
+  navbar_right: 'Navbar right'
+  header: Header
+  content: Content
+  page_bottom: 'Page bottom'
+  footer: Footer
+libraries:
+  - andres/style
+ckeditor5-stylesheets:
+  - build/css/main.style.css
+libraries-extend:
+  core/drupal.ajax:
+    - andres/drupal.ajax
+  core/drupal.checkbox:
+    - andres/drupal.checkbox
+  core/drupal.message:
+    - andres/drupal.message
+  core/drupal.progress:
+    - andres/drupal.progress
+  clientside_validation_jquery/cv.jquery.validate:
+    - andres/jquery.validate
+version: 6.0.2
+project: radix
+datestamp: 1746711574
+generator: 'radix_starterkit:6.0.2'

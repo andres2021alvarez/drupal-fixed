@@ -1,0 +1,5 @@
+# Schema for the configuration files of the prueba2 theme.
+
+prueba2.settings:
+  type: theme_settings
+  label: 'prueba2 settings'

@@ -1,0 +1,1 @@
+{"version":3,"file":"js/global/prueba-componentes.js.js","mappings":";;;;AAAA;AACA,oC","sources":["webpack://andres/../../../../components-globales/prueba-componentes/_prueba-componentes.js"],"sourcesContent":["console.log('Prueba Componentes');\nconsole.error('Prueba Componentes');"],"names":[],"sourceRoot":""}

@@ -1,0 +1,1 @@
+{"version":3,"file":"build/css/components/banner/banner.css","mappings":"AAAA;EACI;AACJ,C","sources":["webpack://andres/./components/banner/banner.scss"],"sourcesContent":[".prueba {\n    background-color: yellow;\n}"],"names":[],"sourceRoot":""}
