@@ -13,7 +13,7 @@ use Drupal\Core\Routing\RouteMatchInterface;
 function shared_components_help($route_name, RouteMatchInterface $route_match) {
   switch ($route_name) {
     case 'help.page.shared_components':
-      return '<p>' . t('Módulo para componentes compartidos entre sitios.') . '</p>';
+      return '<p>' . t('Módulo para componentes compartidos entre sitios con arquitectura enterprise.') . '</p>';
   }
 }
 
@@ -21,44 +21,27 @@ function shared_components_help($route_name, RouteMatchInterface $route_match) {
  * Implements hook_library_info_build().
  */
 function shared_components_library_info_build() {
-  $libraries = [];
-  $module_handler = \Drupal::service('module_handler');
-  $module_path = $module_handler->getModule('shared_components')->getPath();
-  $component_path = $module_path . '/components';
-
-  if (!is_dir(DRUPAL_ROOT . '/' . $component_path)) {
-    return $libraries;
+  try {
+    /** @var \Drupal\shared_components\Service\SharedComponentsService $service */
+    $service = \Drupal::service('shared_components.service');
+    return $service->buildLibraries();
+  } catch (\Exception $e) {
+    \Drupal::logger('shared_components')->error('Failed to build libraries: @error', [
+      '@error' => $e->getMessage()
+    ]);
+    return [];
   }
+}
 
-  $components = scandir(DRUPAL_ROOT . '/' . $component_path);
-
-  foreach ($components as $component) {
-    if ($component == '.' || $component == '..') {
-      continue;
-    }
-
-    $full_component_path = DRUPAL_ROOT . '/' . $component_path . '/' . $component;
-
-    if (!is_dir($full_component_path)) {
-      continue;
-    }
-
-    $library = [];
-
-    $css_file = $component_path . '/' . $component . '/' . $component . '.css';
-    if (file_exists(DRUPAL_ROOT . '/' . $css_file)) {
-      $library['css']['theme'][$css_file] = [];
-    }
-
-    $js_file = $component_path . '/' . $component . '/' . $component . '.js';
-    if (file_exists(DRUPAL_ROOT . '/' . $js_file)) {
-      $library['js'][$js_file] = [];
-    }
-
-    if (!empty($library)) {
-      $libraries[$component] = $library;
-    }
+/**
+ * Implements hook_cache_flush().
+ */
+function shared_components_cache_flush() {
+  try {
+    \Drupal::service('shared_components.service')->clearCache();
+  } catch (\Exception $e) {
+    \Drupal::logger('shared_components')->error('Failed to clear cache: @error', [
+      '@error' => $e->getMessage()
+    ]);
   }
-
-  return $libraries;
 }
