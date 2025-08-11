@@ -14,7 +14,7 @@ use Drupal\lazy_iframe\LazyIframeRenderer;
 function lazy_iframe_help($route_name, RouteMatchInterface $route_match) {
   switch ($route_name) {
     case 'help.page.lazy_iframe':
-      return '<p>' . t('Adds lazy loading attribute to all iframes.') . '</p>';
+      return '<p>' . t('Adds lazy loading attribute to all iframes for improved performance.') . '</p>';
   }
 }
 

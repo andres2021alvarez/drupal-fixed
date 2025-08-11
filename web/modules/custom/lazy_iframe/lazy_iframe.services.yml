@@ -1,0 +1,3 @@
+services:
+  lazy_iframe.processor:
+    class: Drupal\lazy_iframe\LazyIframeProcessor
