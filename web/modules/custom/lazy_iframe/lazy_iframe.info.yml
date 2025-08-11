@@ -1,5 +1,7 @@
 name: 'Lazy Iframe'
 type: module
-description: 'Agrega el atributo loading=&quot;lazy&quot; a todos los iframes'
-package: Custom
+description: 'Adds the loading="lazy" attribute to all iframes'
+package: Core
 core_version_requirement: ^10 || ^11
+dependencies:
+  - drupal:filter

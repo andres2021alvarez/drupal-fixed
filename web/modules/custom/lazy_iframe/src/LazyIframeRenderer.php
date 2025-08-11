@@ -35,18 +35,28 @@ class LazyIframeRenderer implements TrustedCallbackInterface {
   /**
    * Process content to add lazy loading to iframes.
    */
-  public static function processContent($content) {
-    return preg_replace_callback(
-      '/<iframe\b([^>]*)>/i',
-      function($matches) {
-        if (strpos($matches[1], 'loading=') !== false) {
-          return $matches[0];
-        }
+  public static function processContent(string $content): string {
 
-        return '<iframe ' . trim($matches[1]) . ' loading="lazy">';
-      },
-      $content
-    );
+    libxml_use_internal_errors(TRUE);
+
+    $doc = new \DOMDocument();
+    $doc->loadHTML('<?xml encoding="UTF-8"><div>' . $content . '</div>', LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+
+    $iframes = $doc->getElementsByTagName('iframe');
+
+    foreach ($iframes as $iframe) {
+      if (!$iframe->hasAttribute('loading')) {
+        $iframe->setAttribute('loading', 'lazy');
+      }
+    }
+
+    $body = $doc->getElementsByTagName('div')->item(0);
+    $newHtml = '';
+    foreach ($body->childNodes as $child) {
+      $newHtml .= $doc->saveHTML($child);
+    }
+
+    return $newHtml;
   }
 
 }

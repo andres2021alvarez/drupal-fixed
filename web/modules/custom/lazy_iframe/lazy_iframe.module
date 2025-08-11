@@ -5,9 +5,7 @@
  * Adds lazy loading to iframes.
  */
 
-use Drupal\Core\Render\Element;
 use Drupal\Core\Routing\RouteMatchInterface;
-use Drupal\Core\Security\TrustedCallbackInterface;
 use Drupal\lazy_iframe\LazyIframeRenderer;
 
 /**
@@ -19,6 +17,7 @@ function lazy_iframe_help($route_name, RouteMatchInterface $route_match) {
       return '<p>' . t('Adds lazy loading attribute to all iframes.') . '</p>';
   }
 }
+
 /**
  * Implements hook_element_info_alter().
  */
