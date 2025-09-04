@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'drupal/recommended-project',
-        'pretty_version' => '1.0.0+no-version-set',
-        'version' => '1.0.0.0',
-        'reference' => null,
+        'pretty_version' => 'dev-main',
+        'version' => 'dev-main',
+        'reference' => 'fbc4b54fdf7411ff3900b104213b46c86771e522',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -363,6 +363,15 @@
             'aliases' => array(),
             'dev_requirement' => false,
         ),
+        'drupal/js_cookie' => array(
+            'pretty_version' => '1.0.1',
+            'version' => '1.0.1.0',
+            'reference' => '1.0.1',
+            'type' => 'drupal-module',
+            'install_path' => __DIR__ . '/../../web/modules/contrib/js_cookie',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'drupal/layout_paragraphs' => array(
             'pretty_version' => '2.1.1',
             'version' => '2.1.1.0',
@@ -409,9 +418,9 @@
             'dev_requirement' => false,
         ),
         'drupal/recommended-project' => array(
-            'pretty_version' => '1.0.0+no-version-set',
-            'version' => '1.0.0.0',
-            'reference' => null,
+            'pretty_version' => 'dev-main',
+            'version' => 'dev-main',
+            'reference' => 'fbc4b54fdf7411ff3900b104213b46c86771e522',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
