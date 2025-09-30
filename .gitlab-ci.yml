@@ -16,7 +16,7 @@ cache:
 # BASE IMAGES
 # ========================
 .default-php-job:
-  image: php:8.2
+  image: php:8.3
   before_script:
     - apt-get update && apt-get install -y git unzip libpng-dev libjpeg-dev libfreetype6-dev libonig-dev libzip-dev
     - docker-php-ext-configure gd --with-freetype --with-jpeg
@@ -52,7 +52,7 @@ composer:max-php:
 
 composer:previous-major:
   stage: build
-  image: php:8.1
+  image: php:8.2
   extends: .default-php-job
   script:
     - composer validate --strict
@@ -120,16 +120,16 @@ phpunit:
   script:
     - vendor/bin/phpunit --configuration core/phpunit.xml.dist
 
-phpunit:max-php:
+phpunit:previous-major:
   stage: test
-  image: php:8.3
+  image: php:8.2
   extends: .default-php-job
   services:
     - mysql:5.7
   script:
     - vendor/bin/phpunit --configuration core/phpunit.xml.dist
 
-phpunit:previous-major:
+phpunit:old:
   stage: test
   image: php:8.1
   extends: .default-php-job
