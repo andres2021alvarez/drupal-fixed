@@ -1,40 +1,120 @@
 stages:
   - build
+  - validate
   - test
-  - deploy
 
 variables:
-  MYSQL_DATABASE: drupal
-  MYSQL_USER: drupal
-  MYSQL_PASSWORD: drupal
-  MYSQL_ROOT_PASSWORD: root
+  COMPOSER_CACHE_DIR: "$CI_PROJECT_DIR/.composer-cache"
+  DRUPAL_ROOT: web
 
 cache:
   paths:
     - vendor/
-    - web/core
-    - web/modules/contrib
-    - web/themes/contrib
+    - $COMPOSER_CACHE_DIR
 
-build:
+# ========================
+# BUILD
+# ========================
+composer:
+  stage: build
+  image: composer:2
+  script:
+    - composer install --prefer-dist --no-interaction --no-progress
+  artifacts:
+    paths:
+      - vendor/
+      - $DRUPAL_ROOT/core
+      - $DRUPAL_ROOT/modules/contrib
+      - $DRUPAL_ROOT/themes/contrib
+
+composer:max-php:
+  stage: build
+  image: php:8.3
+  script:
+    - composer validate --strict
+
+composer:previous-major:
   stage: build
   image: php:8.2
   script:
-    - apt-get update && apt-get install -y git unzip mariadb-client
-    - curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-    - composer install --prefer-dist --no-interaction
+    - composer validate --strict
 
-test:
+pages:
+  stage: build
+  image: node:20
+  script:
+    - echo "Generar documentación o reportes aquí"
+  artifacts:
+    paths:
+      - public
+  only:
+    - main
+
+# ========================
+# VALIDATE
+# ========================
+composer-lint:
+  stage: validate
+  image: composer:2
+  script:
+    - composer validate --strict
+
+eslint:
+  stage: validate
+  image: node:20
+  script:
+    - npm ci
+    - npx eslint $DRUPAL_ROOT/modules/custom $DRUPAL_ROOT/themes/custom
+
+stylelint:
+  stage: validate
+  image: node:20
+  script:
+    - npm ci
+    - npx stylelint "**/*.scss"
+
+phpcs:
+  stage: validate
+  image: php:8.2
+  script:
+    - composer global require drupal/coder
+    - ~/.composer/vendor/bin/phpcs --standard=Drupal --extensions=php,module,inc,install,test,profile,theme $DRUPAL_ROOT/modules/custom
+
+phpstan:
+  stage: validate
+  image: php:8.2
+  script:
+    - composer require --dev phpstan/phpstan
+    - vendor/bin/phpstan analyse $DRUPAL_ROOT/modules/custom --level=5
+
+# ========================
+# TEST
+# ========================
+phpunit:
   stage: test
   image: php:8.2
+  services:
+    - mysql:5.7
+  variables:
+    MYSQL_DATABASE: drupal
+    MYSQL_USER: drupal
+    MYSQL_PASSWORD: drupal
+    MYSQL_ROOT_PASSWORD: root
+  script:
+    - vendor/bin/phpunit --configuration core/phpunit.xml.dist
+
+phpunit:max-php:
+  stage: test
+  image: php:8.3
   services:
     - mysql:5.7
   script:
     - vendor/bin/phpunit --configuration core/phpunit.xml.dist
 
-deploy:
-  stage: deploy
+phpunit:previous-major:
+  stage: test
+  image: php:8.1
+  services:
+    - mysql:5.7
   script:
-    - echo "Aquí se agrega el script de despliegue (rsync, ssh, Acquia, Pantheon, etc.)"
-  only:
-    - main
+    - vendor/bin/phpunit --configuration core/phpunit.xml.dist
