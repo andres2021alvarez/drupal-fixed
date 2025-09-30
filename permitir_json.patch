@@ -1,0 +1,14 @@
+diff --git a/web/modules/contrib/js_cookie/js_cookie.libraries.yml b/web/modules/contrib/js_cookie/js_cookie.libraries.yml
+index 99e09195..0372ff35 100644
+--- a/web/modules/contrib/js_cookie/js_cookie.libraries.yml
++++ b/web/modules/contrib/js_cookie/js_cookie.libraries.yml
+@@ -6,4 +6,8 @@ js-cookie:
+     url: https://raw.githubusercontent.com/js-cookie/js-cookie/v3.0.5/LICENSE
+     gpl-compatible: true
+   js:
+-    https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js: { type: external, minified: true }
++    https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js:
++      type: external
++      minified: true
++      attributes:
++        async: true
