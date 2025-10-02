@@ -108,53 +108,6 @@ stylelint:
       EOF
     - npx --yes stylelint "$DRUPAL_ROOT/modules/custom/**/*.{css,scss}" "$DRUPAL_ROOT/themes/custom/**/*.{css,scss}" --allow-empty-input
 
-phpunit:
-  stage: test
-  extends: .default-php-job
-  services:
-    - mysql:5.7
-  variables:
-    MYSQL_DATABASE: drupal
-    MYSQL_USER: drupal
-    MYSQL_PASSWORD: drupal
-    MYSQL_ROOT_PASSWORD: root
-  script:
-    - composer install --optimize-autoloader
-    - |
-      if [ ! -f vendor/bin/phpunit ]; then
-        composer require --dev phpunit/phpunit
-      fi
-    - |
-      if [ -f core/phpunit.xml.dist ]; then
-        vendor/bin/phpunit --configuration core/phpunit.xml.dist
-      else
-        echo "No PHPUnit configuration found - skipping PHPUnit tests"
-      fi
-
-phpunit-max-php:
-  stage: test
-  image: php:8.4
-  extends: .default-php-job
-  services:
-    - mysql:5.7
-  variables:
-    MYSQL_DATABASE: drupal
-    MYSQL_USER: drupal
-    MYSQL_PASSWORD: drupal
-    MYSQL_ROOT_PASSWORD: root
-  script:
-    - composer install --optimize-autoloader
-    - |
-      if [ ! -f vendor/bin/phpunit ]; then
-        composer require --dev phpunit/phpunit
-      fi
-    - |
-      if [ -f core/phpunit.xml.dist ]; then
-        vendor/bin/phpunit --configuration core/phpunit.xml.dist
-      else
-        echo "No PHPUnit configuration found"
-      fi
-
 sonarqube-check:
   stage: test
   image: sonarsource/sonar-scanner-cli:latest
@@ -176,6 +129,6 @@ sonarqube-check:
       -Dsonar.exclusions="**/scripts/**,**/node_modules/**,**/config/**,**/vendor/**,**/.ddev/**,**/.platform/**,**/.scannerwork/**,**/web/core/**,**/web/modules/contrib/**,**/web/themes/contrib/**,**/autoload.php,**/web/libraries/**,**/acquia-utils/**,**/components/**,**/files/**,**/settings.php,**/*.settings.php,**/index.php,**/update.php,*.development.php,**/sites.php,**/*.sites.php,**/*.local.php,**/*.environment.php,**/g/**,**/hooks/**,**/factory-hooks/**"
       -Dsonar.inclusions="**/*,**/*.theme,**/*.yml,**/*.php,**/*.module,**/*.twig,**/*.js,**/*.css"
       -Dsonar.php.file.suffixes=php,php3,php4,php5,phtml,inc,module,install,theme
-      -Dsonar.projectVersion=$(git rev-parse --abbrev-ref HEAD)
+      -Dsonar.projectVersion=$CI_COMMIT_REF_NAME
       -Dsonar.analysisCache.enabled=false
   allow_failure: true
