@@ -7,8 +7,15 @@ variables:
   COMPOSER_CACHE_DIR: "$CI_PROJECT_DIR/.composer-cache"
   DRUPAL_ROOT: web
 
+workflow:
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "push"
+      auto_cancel:
+        on_new_commit: interruptible
+
 .default-php-job:
   image: php:8.3
+  interruptible: true
   before_script:
     - apt-get update && apt-get install -y git unzip libpng-dev libjpeg-dev libfreetype6-dev libonig-dev libzip-dev
     - docker-php-ext-configure gd --with-freetype --with-jpeg
@@ -17,6 +24,7 @@ variables:
 
 .default-node-job:
   image: node:20
+  interruptible: true
   before_script:
     - echo "Using global packages via npx"
 
@@ -150,6 +158,7 @@ phpunit-max-php:
 sonarqube-check:
   stage: test
   image: sonarsource/sonar-scanner-cli:latest
+  interruptible: true
   variables:
     SONAR_USER_HOME: "${CI_PROJECT_DIR}/.sonar"
     GIT_DEPTH: "0"
@@ -162,11 +171,10 @@ sonarqube-check:
       -Dsonar.projectKey=gitlab \
       -Dsonar.sources=. \
       -Dsonar.host.url=https://sonar.esinergia-sites.com \
-      -Dsonar.login=sqp_fdc1e8ad8eabdf01965259d70734ba75c2af9c72
+      -Dsonar.login=sqp_fdc1e8ad8eabdf01965259d70734ba75c2af9c72 \
       -Dsonar.exclusions='**/scripts/**,**/node_modules/**,**/config/**,**/vendor/**,**/.ddev/**,**/.platform/**,**/.scannerwork/**,**/docroot/core/**,**/docroot/modules/contrib/**,**/docroot/themes/contrib/**,**/autoload.php,**/docroot/libraries/**,**/acquia-utils/**,**/components/**,**/files/**,**/settings.php,**/*.settings.php,**/index.php,**/update.php,*.development.php,**/sites.php,**/*.sites.php,**/*.local.php,**/*.environment.php,**/g/**,**/hooks/**,**/factory-hooks/**' \
       -Dsonar.inclusions='**/*,**/*.theme,**/*.yml,**/*.php,**/*.module,**/*.twig,**/*.js,**/*.css' \
       -Dsonar.php.file.suffixes=php,php3,php4,php5,phtml,inc,module,install,theme \
       -Dsonar.projectVersion=$(git rev-parse --abbrev-ref HEAD) \
       -Dsonar.analysisCache.enabled=false
-
   allow_failure: true
