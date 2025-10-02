@@ -55,7 +55,16 @@ eslint:
   stage: validate
   extends: .default-node-job
   script:
-    - echo 'export default [{ files: ["**/*.js"], languageOptions: { ecmaVersion: 2022, sourceType: "module" } }];' > eslint.config.js
+    - |
+      cat > eslint.config.js << 'EOF'
+      export default [{
+        files: ["**/*.js"],
+        languageOptions: {
+          ecmaVersion: 2022,
+          sourceType: "module"
+        }
+      }];
+      EOF
     - npx --yes eslint $DRUPAL_ROOT/modules/custom $DRUPAL_ROOT/themes/custom
 
 stylelint:
