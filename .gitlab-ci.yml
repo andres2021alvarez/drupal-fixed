@@ -46,7 +46,7 @@ phpcs:
       if [ -d "$DRUPAL_ROOT/modules/custom" ] && find $DRUPAL_ROOT/modules/custom -name "*.php" -o -name "*.module" -o -name "*.inc" -o -name "*.install" -o -name "*.test" -o -name "*.profile" -o -name "*.theme" 2>/dev/null | head -1 | grep -q .; then
         ~/.composer/vendor/bin/phpcs --standard=Drupal --extensions=php,module,inc,install,test,profile,theme $DRUPAL_ROOT/modules/custom
       else
-        echo "No PHP files found in custom modules - skipping PHPCS"
+        echo "No PHP files found in custom modules"
       fi
 
 phpstan:
@@ -59,7 +59,7 @@ phpstan:
       if [ -d "$DRUPAL_ROOT/modules/custom" ] && find $DRUPAL_ROOT/modules/custom -name "*.php" 2>/dev/null | head -1 | grep -q .; then
         vendor/bin/phpstan analyse $DRUPAL_ROOT/modules/custom --level=5 --memory-limit=1G
       else
-        echo "No PHP files found in custom modules - skipping PHPStan"
+        echo "No PHP files found in custom modules"
       fi
 
 eslint:
@@ -112,6 +112,10 @@ phpunit:
     MYSQL_ROOT_PASSWORD: root
   script:
     - composer install --optimize-autoloader
+    - |
+      if [ ! -f vendor/bin/phpunit ]; then
+        composer require --dev phpunit/phpunit
+      fi
     - vendor/bin/phpunit --configuration core/phpunit.xml.dist
 
 phpunit-max-php:
@@ -127,6 +131,10 @@ phpunit-max-php:
     MYSQL_ROOT_PASSWORD: root
   script:
     - composer install --optimize-autoloader
+    - |
+      if [ ! -f vendor/bin/phpunit ]; then
+        composer require --dev phpunit/phpunit
+      fi
     - vendor/bin/phpunit --configuration core/phpunit.xml.dist
 
 phpunit-previous-major:
@@ -142,4 +150,8 @@ phpunit-previous-major:
     MYSQL_ROOT_PASSWORD: root
   script:
     - composer install --optimize-autoloader
+    - |
+      if [ ! -f vendor/bin/phpunit ]; then
+        composer require --dev phpunit/phpunit
+      fi
     - vendor/bin/phpunit --configuration core/phpunit.xml.dist
