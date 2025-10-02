@@ -173,7 +173,7 @@ sonarqube-check:
       -Dsonar.sources=.
       -Dsonar.host.url=https://sonar.esinergia-sites.com
       -Dsonar.login=sqp_b61d4833c36210c2ae936cea1db2e816789b17b2
-      -Dsonar.exclusions="**/scripts/**,**/node_modules/**,**/config/**,**/vendor/**,**/.ddev/**,**/.platform/**,**/.scannerwork/**,**/docroot/core/**,**/docroot/modules/contrib/**,**/docroot/themes/contrib/**,**/autoload.php,**/docroot/libraries/**,**/acquia-utils/**,**/components/**,**/files/**,**/settings.php,**/*.settings.php,**/index.php,**/update.php,*.development.php,**/sites.php,**/*.sites.php,**/*.local.php,**/*.environment.php,**/g/**,**/hooks/**,**/factory-hooks/**"
+      -Dsonar.exclusions="**/scripts/**,**/node_modules/**,**/config/**,**/vendor/**,**/.ddev/**,**/.platform/**,**/.scannerwork/**,**/web/core/**,**/web/modules/contrib/**,**/web/themes/contrib/**,**/autoload.php,**/web/libraries/**,**/acquia-utils/**,**/components/**,**/files/**,**/settings.php,**/*.settings.php,**/index.php,**/update.php,*.development.php,**/sites.php,**/*.sites.php,**/*.local.php,**/*.environment.php,**/g/**,**/hooks/**,**/factory-hooks/**"
       -Dsonar.inclusions="**/*,**/*.theme,**/*.yml,**/*.php,**/*.module,**/*.twig,**/*.js,**/*.css"
       -Dsonar.php.file.suffixes=php,php3,php4,php5,phtml,inc,module,install,theme
       -Dsonar.projectVersion=$(git rev-parse --abbrev-ref HEAD)
