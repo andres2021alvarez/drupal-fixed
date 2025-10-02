@@ -16,6 +16,7 @@
     ],
     "require": {
         "composer/installers": "^2.3",
+        "drupal/coder": "^8.3",
         "drupal/core-composer-scaffold": "^11.1",
         "drupal/core-project-message": "^11.1",
         "drupal/core-recommended": "^11.1",
@@ -24,7 +25,8 @@
         "drupal/mercury_editor": "^2.2",
         "drupal/radix": "^6.0",
         "drupal/single_content_sync": "^1.4",
-        "drush/drush": "^13.6"
+        "drush/drush": "^13.6",
+        "slevomat/coding-standard": "^8.22"
     },
     "conflict": {
         "drupal/drupal": "*"

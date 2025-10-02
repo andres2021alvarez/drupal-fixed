@@ -40,7 +40,6 @@ phpcs:
   extends: .default-php-job
   script:
     - composer install --no-dev --optimize-autoloader
-    - composer global require drupal/coder
     - ~/.composer/vendor/bin/phpcs --standard=Drupal --extensions=php,module,inc,install,test,profile,theme $DRUPAL_ROOT/modules/custom
 
 phpstan:
