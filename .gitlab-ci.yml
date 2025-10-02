@@ -71,6 +71,17 @@ stylelint:
   stage: validate
   extends: .default-node-job
   script:
+    - |
+      cat > .stylelintrc.json << 'EOF'
+      {
+        "rules": {
+          "block-no-empty": true,
+          "color-no-invalid-hex": true,
+          "declaration-colon-space-after": "always",
+          "indentation": 2
+        }
+      }
+      EOF
     - npx --yes stylelint "$DRUPAL_ROOT/modules/custom/**/*.{css,scss}" "$DRUPAL_ROOT/themes/custom/**/*.{css,scss}"
 
 phpunit:
