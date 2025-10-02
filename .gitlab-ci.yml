@@ -158,12 +158,9 @@ sonarqube-check:
     paths:
       - .sonar/cache
   script:
-    - sonar-scanner
-      -Dsonar.projectKey=$CI_PROJECT_NAME
-      -Dsonar.sources=$DRUPAL_ROOT/modules/custom,$DRUPAL_ROOT/themes/custom
-      -Dsonar.host.url=$SONAR_HOST_URL
-      -Dsonar.token=$SONAR_TOKEN
-      -Dsonar.php.file.suffixes=php,module,inc,install,test,profile,theme
-      -Dsonar.javascript.file.suffixes=.js
-      -Dsonar.css.file.suffixes=.css,.scss
+    - sonar-scanner \
+      -Dsonar.projectKey=gitlab \
+      -Dsonar.sources=. \
+      -Dsonar.host.url=https://sonar.esinergia-sites.com \
+      -Dsonar.login=sqp_fdc1e8ad8eabdf01965259d70734ba75c2af9c72
   allow_failure: true
