@@ -167,14 +167,15 @@ sonarqube-check:
     paths:
       - .sonar/cache
   script:
-    - sonar-scanner \
-      -Dsonar.projectKey=gitlab \
-      -Dsonar.sources=. \
-      -Dsonar.host.url=https://sonar.esinergia-sites.com \
-      -Dsonar.login=sqp_fdc1e8ad8eabdf01965259d70734ba75c2af9c72 \
-      -Dsonar.exclusions='**/scripts/**,**/node_modules/**,**/config/**,**/vendor/**,**/.ddev/**,**/.platform/**,**/.scannerwork/**,**/docroot/core/**,**/docroot/modules/contrib/**,**/docroot/themes/contrib/**,**/autoload.php,**/docroot/libraries/**,**/acquia-utils/**,**/components/**,**/files/**,**/settings.php,**/*.settings.php,**/index.php,**/update.php,*.development.php,**/sites.php,**/*.sites.php,**/*.local.php,**/*.environment.php,**/g/**,**/hooks/**,**/factory-hooks/**' \
-      -Dsonar.inclusions='**/*,**/*.theme,**/*.yml,**/*.php,**/*.module,**/*.twig,**/*.js,**/*.css' \
-      -Dsonar.php.file.suffixes=php,php3,php4,php5,phtml,inc,module,install,theme \
-      -Dsonar.projectVersion=$(git rev-parse --abbrev-ref HEAD) \
+    - git config --global --add safe.directory $CI_PROJECT_DIR
+    - sonar-scanner
+      -Dsonar.projectKey=$CI_PROJECT_NAME
+      -Dsonar.sources=.
+      -Dsonar.host.url=$SONAR_HOST_URL
+      -Dsonar.login=$SONAR_TOKEN
+      -Dsonar.exclusions="**/scripts/**,**/node_modules/**,**/config/**,**/vendor/**,**/.ddev/**,**/.platform/**,**/.scannerwork/**,**/docroot/core/**,**/docroot/modules/contrib/**,**/docroot/themes/contrib/**,**/autoload.php,**/docroot/libraries/**,**/acquia-utils/**,**/components/**,**/files/**,**/settings.php,**/*.settings.php,**/index.php,**/update.php,*.development.php,**/sites.php,**/*.sites.php,**/*.local.php,**/*.environment.php,**/g/**,**/hooks/**,**/factory-hooks/**"
+      -Dsonar.inclusions="**/*,**/*.theme,**/*.yml,**/*.php,**/*.module,**/*.twig,**/*.js,**/*.css"
+      -Dsonar.php.file.suffixes=php,php3,php4,php5,phtml,inc,module,install,theme
+      -Dsonar.projectVersion=$(git rev-parse --abbrev-ref HEAD)
       -Dsonar.analysisCache.enabled=false
   allow_failure: true
