@@ -3,7 +3,7 @@
         'name' => 'drupal/recommended-project',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => 'fbc4b54fdf7411ff3900b104213b46c86771e522',
+        'reference' => 'f52c24e14a43601001010c11bcdebdaf7c9fa8f1',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -152,17 +152,6 @@
             'type' => 'library',
             'install_path' => __DIR__ . '/../doctrine/lexer',
             'aliases' => array(),
-            'dev_requirement' => false,
-        ),
-        'drupal/conditional_fields' => array(
-            'pretty_version' => 'dev-4.x',
-            'version' => 'dev-4.x',
-            'reference' => 'e29baa2041c92bdfc4199b9ac046bf41b9360910',
-            'type' => 'drupal-module',
-            'install_path' => __DIR__ . '/../../web/modules/contrib/conditional_fields',
-            'aliases' => array(
-                0 => '4.x-dev',
-            ),
             'dev_requirement' => false,
         ),
         'drupal/core' => array(
@@ -420,21 +409,19 @@
         'drupal/recommended-project' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => 'fbc4b54fdf7411ff3900b104213b46c86771e522',
+            'reference' => 'f52c24e14a43601001010c11bcdebdaf7c9fa8f1',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
             'dev_requirement' => false,
         ),
         'drupal/single_content_sync' => array(
-            'pretty_version' => 'dev-1.4.x',
-            'version' => 'dev-1.4.x',
-            'reference' => 'c98bbf68cba93d7a8cd80272939cc2aff844c4c8',
+            'pretty_version' => '1.4.13',
+            'version' => '1.4.13.0',
+            'reference' => '1.4.13',
             'type' => 'drupal-module',
             'install_path' => __DIR__ . '/../../web/modules/contrib/single_content_sync',
-            'aliases' => array(
-                0 => '1.4.x-dev',
-            ),
+            'aliases' => array(),
             'dev_requirement' => false,
         ),
         'drupal/style_options' => array(

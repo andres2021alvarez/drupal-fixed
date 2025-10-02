@@ -16,7 +16,6 @@
     ],
     "require": {
         "composer/installers": "^2.3",
-        "drupal/conditional_fields": "4.x-dev@dev",
         "drupal/core-composer-scaffold": "^11.1",
         "drupal/core-project-message": "^11.1",
         "drupal/core-recommended": "^11.1",
@@ -24,7 +23,7 @@
         "drupal/js_cookie": "^1.0",
         "drupal/mercury_editor": "^2.2",
         "drupal/radix": "^6.0",
-        "drupal/single_content_sync": "1.4.x-dev@dev",
+        "drupal/single_content_sync": "^1.4",
         "drush/drush": "^13.6"
     },
     "conflict": {
