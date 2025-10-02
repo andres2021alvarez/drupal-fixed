@@ -169,7 +169,7 @@ sonarqube-check:
   script:
     - git config --global --add safe.directory $CI_PROJECT_DIR
     - sonar-scanner
-      -Dsonar.projectKey=$CI_PROJECT_NAME
+      -Dsonar.projectKey=gitlab
       -Dsonar.sources=.
       -Dsonar.host.url=https://sonar.esinergia-sites.com
       -Dsonar.login=sqp_b61d4833c36210c2ae936cea1db2e816789b17b2
