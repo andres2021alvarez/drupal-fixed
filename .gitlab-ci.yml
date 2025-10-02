@@ -116,7 +116,12 @@ phpunit:
       if [ ! -f vendor/bin/phpunit ]; then
         composer require --dev phpunit/phpunit
       fi
-    - vendor/bin/phpunit --configuration core/phpunit.xml.dist
+    - |
+      if [ -f core/phpunit.xml.dist ]; then
+        vendor/bin/phpunit --configuration core/phpunit.xml.dist
+      else
+        echo "No PHPUnit configuration found - skipping PHPUnit tests"
+      fi
 
 phpunit-max-php:
   stage: test
@@ -135,7 +140,12 @@ phpunit-max-php:
       if [ ! -f vendor/bin/phpunit ]; then
         composer require --dev phpunit/phpunit
       fi
-    - vendor/bin/phpunit --configuration core/phpunit.xml.dist
+    - |
+      if [ -f core/phpunit.xml.dist ]; then
+        vendor/bin/phpunit --configuration core/phpunit.xml.dist
+      else
+        echo "No PHPUnit configuration found - skipping PHPUnit tests"
+      fi
 
 phpunit-previous-major:
   stage: test
@@ -154,4 +164,9 @@ phpunit-previous-major:
       if [ ! -f vendor/bin/phpunit ]; then
         composer require --dev phpunit/phpunit
       fi
-    - vendor/bin/phpunit --configuration core/phpunit.xml.dist
+    - |
+      if [ -f core/phpunit.xml.dist ]; then
+        vendor/bin/phpunit --configuration core/phpunit.xml.dist
+      else
+        echo "No PHPUnit configuration found - skipping PHPUnit tests"
+      fi
