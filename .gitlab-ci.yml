@@ -168,17 +168,11 @@ sonarqube-check:
       - .sonar/cache
   script:
     - git config --global --add safe.directory $CI_PROJECT_DIR
-    - |
-      if [ -z "$SONAR_TOKEN" ]; then
-        echo "SONAR_TOKEN variable must be configured in GitLab CI/CD settings"
-        echo "Skipping SonarQube analysis"
-        exit 0
-      fi
     - sonar-scanner
       -Dsonar.projectKey=$CI_PROJECT_NAME
       -Dsonar.sources=.
       -Dsonar.host.url=https://sonar.esinergia-sites.com
-      -Dsonar.login=$SONAR_TOKEN
+      -Dsonar.login=sqp_b61d4833c36210c2ae936cea1db2e816789b17b2
       -Dsonar.exclusions="**/scripts/**,**/node_modules/**,**/config/**,**/vendor/**,**/.ddev/**,**/.platform/**,**/.scannerwork/**,**/docroot/core/**,**/docroot/modules/contrib/**,**/docroot/themes/contrib/**,**/autoload.php,**/docroot/libraries/**,**/acquia-utils/**,**/components/**,**/files/**,**/settings.php,**/*.settings.php,**/index.php,**/update.php,*.development.php,**/sites.php,**/*.sites.php,**/*.local.php,**/*.environment.php,**/g/**,**/hooks/**,**/factory-hooks/**"
       -Dsonar.inclusions="**/*,**/*.theme,**/*.yml,**/*.php,**/*.module,**/*.twig,**/*.js,**/*.css"
       -Dsonar.php.file.suffixes=php,php3,php4,php5,phtml,inc,module,install,theme
