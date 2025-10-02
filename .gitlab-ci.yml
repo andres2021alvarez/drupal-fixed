@@ -87,12 +87,7 @@ stylelint:
         }
       }
       EOF
-    - |
-      if find $DRUPAL_ROOT/modules/custom $DRUPAL_ROOT/themes/custom -name "*.css" -o -name "*.scss" 2>/dev/null | head -1 | grep -q .; then
-        npx --yes stylelint "$DRUPAL_ROOT/modules/custom/**/*.{css,scss}" "$DRUPAL_ROOT/themes/custom/**/*.{css,scss}"
-      else
-        echo "No CSS/SCSS files found - skipping Stylelint"
-      fi
+    - npx --yes stylelint "$DRUPAL_ROOT/modules/custom/**/*.{css,scss}" "$DRUPAL_ROOT/themes/custom/**/*.{css,scss}" --allow-empty-input
 
 phpunit:
   stage: test
