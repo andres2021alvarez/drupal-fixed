@@ -40,7 +40,13 @@ phpcs:
   extends: .default-php-job
   script:
     - composer install --no-dev --optimize-autoloader
-    - ~/.composer/vendor/bin/phpcs --standard=Drupal --extensions=php,module,inc,install,test,profile,theme $DRUPAL_ROOT/modules/custom
+    - composer global require drupal/coder
+    - |
+      if [ -d "$DRUPAL_ROOT/modules/custom" ] && find $DRUPAL_ROOT/modules/custom -name "*.php" -o -name "*.module" -o -name "*.inc" -o -name "*.install" -o -name "*.test" -o -name "*.profile" -o -name "*.theme" 2>/dev/null | head -1 | grep -q .; then
+        ~/.composer/vendor/bin/phpcs --standard=Drupal --extensions=php,module,inc,install,test,profile,theme $DRUPAL_ROOT/modules/custom
+      else
+        echo "No PHP files found in custom modules - skipping PHPCS"
+      fi
 
 phpstan:
   stage: validate
@@ -48,7 +54,12 @@ phpstan:
   script:
     - composer install --optimize-autoloader
     - composer require --dev phpstan/phpstan phpstan/extension-installer
-    - vendor/bin/phpstan analyse $DRUPAL_ROOT/modules/custom --level=5 --memory-limit=1G
+    - |
+      if [ -d "$DRUPAL_ROOT/modules/custom" ] && find $DRUPAL_ROOT/modules/custom -name "*.php" 2>/dev/null | head -1 | grep -q .; then
+        vendor/bin/phpstan analyse $DRUPAL_ROOT/modules/custom --level=5 --memory-limit=1G
+      else
+        echo "No PHP files found in custom modules - skipping PHPStan"
+      fi
 
 eslint:
   stage: validate
