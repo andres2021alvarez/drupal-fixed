@@ -40,6 +40,7 @@ phpcs:
   extends: .default-php-job
   script:
     - composer install --no-dev --optimize-autoloader
+    - composer global config --no-plugins allow-plugins.dealerdirect/phpcodesniffer-composer-installer true
     - composer global require drupal/coder
     - |
       if [ -d "$DRUPAL_ROOT/modules/custom" ] && find $DRUPAL_ROOT/modules/custom -name "*.php" -o -name "*.module" -o -name "*.inc" -o -name "*.install" -o -name "*.test" -o -name "*.profile" -o -name "*.theme" 2>/dev/null | head -1 | grep -q .; then
