@@ -7,14 +7,6 @@ variables:
   COMPOSER_CACHE_DIR: "$CI_PROJECT_DIR/.composer-cache"
   DRUPAL_ROOT: web
 
-cache:
-  paths:
-    - vendor/
-    - $COMPOSER_CACHE_DIR
-
-# ========================
-# BASE IMAGES
-# ========================
 .default-php-job:
   image: php:8.3
   before_script:
@@ -28,60 +20,26 @@ cache:
   before_script:
     - npm ci || npm install
 
-# ========================
-# BUILD
-# ========================
 composer:
-  stage: build
-  extends: .default-php-job
-  script:
-    - composer install --prefer-dist --no-interaction --no-progress
-  artifacts:
-    paths:
-      - vendor/
-      - $DRUPAL_ROOT/core
-      - $DRUPAL_ROOT/modules/contrib
-      - $DRUPAL_ROOT/themes/contrib
-
-composer:max-php:
   stage: build
   image: php:8.3
   extends: .default-php-job
   script:
     - composer validate --strict
+    - composer install --dry-run --no-dev
 
-composer:previous-major:
-  stage: build
-  image: php:8.2
-  extends: .default-php-job
-  script:
-    - composer validate --strict
-
-pages:
-  stage: build
-  image: node:20
-  script:
-    - echo "Generar documentación o reportes aquí"
-    - mkdir -p public && echo "<h1>Pipeline Drupal</h1>" > public/index.html
-  artifacts:
-    paths:
-      - public
-  only:
-    - main
-
-# ========================
-# VALIDATE
-# ========================
 composer-lint:
   stage: validate
   extends: .default-php-job
   script:
+    - composer install --no-dev --optimize-autoloader
     - composer validate --strict
 
 phpcs:
   stage: validate
   extends: .default-php-job
   script:
+    - composer install --no-dev --optimize-autoloader
     - composer global require drupal/coder
     - ~/.composer/vendor/bin/phpcs --standard=Drupal --extensions=php,module,inc,install,test,profile,theme $DRUPAL_ROOT/modules/custom
 
@@ -89,8 +47,9 @@ phpstan:
   stage: validate
   extends: .default-php-job
   script:
-    - composer require --dev phpstan/phpstan
-    - vendor/bin/phpstan analyse $DRUPAL_ROOT/modules/custom --level=5
+    - composer install --optimize-autoloader
+    - composer require --dev phpstan/phpstan phpstan/extension-installer
+    - vendor/bin/phpstan analyse $DRUPAL_ROOT/modules/custom --level=5 --memory-limit=1G
 
 eslint:
   stage: validate
@@ -104,9 +63,6 @@ stylelint:
   script:
     - npx stylelint "**/*.scss"
 
-# ========================
-# TEST
-# ========================
 phpunit:
   stage: test
   extends: .default-php-job
@@ -118,22 +74,35 @@ phpunit:
     MYSQL_PASSWORD: drupal
     MYSQL_ROOT_PASSWORD: root
   script:
+    - composer install --optimize-autoloader
     - vendor/bin/phpunit --configuration core/phpunit.xml.dist
 
-phpunit:previous-major:
+phpunit-max-php:
+  stage: test
+  image: php:8.3
+  extends: .default-php-job
+  services:
+    - mysql:5.7
+  variables:
+    MYSQL_DATABASE: drupal
+    MYSQL_USER: drupal
+    MYSQL_PASSWORD: drupal
+    MYSQL_ROOT_PASSWORD: root
+  script:
+    - composer install --optimize-autoloader
+    - vendor/bin/phpunit --configuration core/phpunit.xml.dist
+
+phpunit-previous-major:
   stage: test
   image: php:8.2
   extends: .default-php-job
   services:
     - mysql:5.7
+  variables:
+    MYSQL_DATABASE: drupal
+    MYSQL_USER: drupal
+    MYSQL_PASSWORD: drupal
+    MYSQL_ROOT_PASSWORD: root
   script:
-    - vendor/bin/phpunit --configuration core/phpunit.xml.dist
-
-phpunit:old:
-  stage: test
-  image: php:8.1
-  extends: .default-php-job
-  services:
-    - mysql:5.7
-  script:
+    - composer install --optimize-autoloader
     - vendor/bin/phpunit --configuration core/phpunit.xml.dist
