@@ -26,7 +26,8 @@
         "drupal/radix": "^6.0",
         "drupal/single_content_sync": "^1.4",
         "drush/drush": "^13.6",
-        "slevomat/coding-standard": "^8.22"
+        "slevomat/coding-standard": "^8.22",
+        "squizlabs/php_codesniffer": "^3.13"
     },
     "conflict": {
         "drupal/drupal": "*"
