@@ -18,7 +18,7 @@ variables:
 .default-node-job:
   image: node:20
   before_script:
-    - npm ci || npm install
+    - echo "Using global packages via npx"
 
 composer:
   stage: build
@@ -55,13 +55,13 @@ eslint:
   stage: validate
   extends: .default-node-job
   script:
-    - npx eslint $DRUPAL_ROOT/modules/custom $DRUPAL_ROOT/themes/custom
+    - npx --yes eslint $DRUPAL_ROOT/modules/custom $DRUPAL_ROOT/themes/custom
 
 stylelint:
   stage: validate
   extends: .default-node-job
   script:
-    - npx stylelint "**/*.scss"
+    - npx --yes stylelint "$DRUPAL_ROOT/modules/custom/**/*.{css,scss}" "$DRUPAL_ROOT/themes/custom/**/*.{css,scss}"
 
 phpunit:
   stage: test
