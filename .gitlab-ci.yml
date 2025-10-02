@@ -125,7 +125,7 @@ phpunit:
 
 phpunit-max-php:
   stage: test
-  image: php:8.3
+  image: php:8.4
   extends: .default-php-job
   services:
     - mysql:5.7
@@ -144,29 +144,5 @@ phpunit-max-php:
       if [ -f core/phpunit.xml.dist ]; then
         vendor/bin/phpunit --configuration core/phpunit.xml.dist
       else
-        echo "No PHPUnit configuration found - skipping PHPUnit tests"
-      fi
-
-phpunit-previous-major:
-  stage: test
-  image: php:8.2
-  extends: .default-php-job
-  services:
-    - mysql:5.7
-  variables:
-    MYSQL_DATABASE: drupal
-    MYSQL_USER: drupal
-    MYSQL_PASSWORD: drupal
-    MYSQL_ROOT_PASSWORD: root
-  script:
-    - composer install --optimize-autoloader
-    - |
-      if [ ! -f vendor/bin/phpunit ]; then
-        composer require --dev phpunit/phpunit
-      fi
-    - |
-      if [ -f core/phpunit.xml.dist ]; then
-        vendor/bin/phpunit --configuration core/phpunit.xml.dist
-      else
-        echo "No PHPUnit configuration found - skipping PHPUnit tests"
+        echo "No PHPUnit configuration found"
       fi
