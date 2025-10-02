@@ -1,9 +1,0 @@
-name: 'FSFB Iframe CKEditor'
-description: 'Suite de funcionalidades globales para la red de Portales FSFB.'
-package: FSFB
-type: module
-core: 8.x
-core_version_requirement: ^10 || ^11
-dependencies:
-  - drupal:ckeditor5
-  - drupal:filter

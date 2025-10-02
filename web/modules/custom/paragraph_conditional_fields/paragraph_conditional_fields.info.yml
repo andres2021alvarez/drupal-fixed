@@ -1,7 +1,0 @@
-name: 'Paragraph Conditional Fields'
-type: module
-description: 'Permite crear dependencias condicionales entre campos de paragraphs padre e hijo.'
-core_version_requirement: ^11
-package: Custom
-dependencies:
-  - drupal:paragraphs

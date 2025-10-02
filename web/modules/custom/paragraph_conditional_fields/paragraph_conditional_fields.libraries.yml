@@ -1,7 +1,0 @@
-conditional_logic:
-  version: VERSION
-  js:
-    js/conditional-logic.js: {}
-  dependencies:
-    - core/jquery
-    - core/drupal

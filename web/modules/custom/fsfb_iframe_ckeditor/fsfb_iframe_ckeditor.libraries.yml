@@ -1,7 +1,0 @@
-
-iframe_lazy:
-  version: VERSION
-  js:
-    js/ckeditor5_plugins/fsfbIframeLazy/src/index.js: { minified: true }
-  dependencies:
-    - core/ckeditor5

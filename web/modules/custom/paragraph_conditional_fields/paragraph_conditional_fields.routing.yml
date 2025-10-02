@@ -1,7 +1,0 @@
-paragraph_conditional_fields.settings:
-  path: '/admin/config/content/paragraph-conditional-fields'
-  defaults:
-    _form: '\Drupal\paragraph_conditional_fields\Form\ParagraphConditionalSettingsForm'
-    _title: 'Paragraph Conditional Fields Settings'
-  requirements:
-    _permission: 'administer paragraph conditional fields'
